@@ -1,12 +1,10 @@
-package app.mobile.picopalaapp;
+package app.mobile.picopalaapp.view;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +21,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.DateFormatSymbols;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import app.mobile.picopalaapp.R;
 import app.mobile.picopalaapp.helpers.DateHelper;
 import app.mobile.picopalaapp.helpers.Util;
 
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 String licensePlate = etLicensePlate.getText().toString();
                 String date = etDate.getText().toString();
                 String hour = etHour.getText().toString();
-                char lastDigit = licensePlate.charAt(licensePlate.length() - 1);
+
                 if (Util.validateLicensePlate(licensePlate)) {
                     if (date.isEmpty()) {
                         Toast.makeText(context, "Debe ingresar una fecha", Toast.LENGTH_LONG).show();
@@ -107,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(context, "Debe ingresar un horario", Toast.LENGTH_LONG).show();
                         return;
                     }
+                    char lastDigit = licensePlate.charAt(licensePlate.length() - 1);
                     boolean isCounterversion = Util.existCounterversion(lastDigit, date, hour, weekDaySelected);
                     String msjDialog = "";
                     if (isCounterversion) {
@@ -142,11 +140,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
