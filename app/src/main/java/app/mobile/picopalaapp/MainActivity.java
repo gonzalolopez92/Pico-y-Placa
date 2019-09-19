@@ -10,6 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,11 +20,15 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import app.mobile.picopalaapp.helpers.DateHelper;
+import app.mobile.picopalaapp.helpers.Util;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etHour;
     private EditText etDate;
     private String dateFormat;
-    private int mHour, mMinute;
+    private String weekDaySelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +93,20 @@ public class MainActivity extends AppCompatActivity {
         btnConsultant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateLicensePlate(etLicensePlate.getText().toString())) {
-
+                String licensePlate = etLicensePlate.getText().toString();
+                String date = etDate.getText().toString();
+                String hour = etHour.getText().toString();
+                char lastDigit = licensePlate.charAt(licensePlate.length() - 1);
+                if (Util.validateLicensePlate(licensePlate)) {
+                    if (date.isEmpty()) {
+                        Toast.makeText(context, "Debe ingresar una fecha", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    if (hour.isEmpty()) {
+                        Toast.makeText(context, "Debe ingresar un horario", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    Util.existCounterversion(lastDigit, date, hour, weekDaySelected);
                 } else {
                     Toast.makeText(context, "Debe ingresar una placa válida", Toast.LENGTH_LONG).show();
                 }
@@ -99,15 +116,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean validateLicensePlate(String licensePlate) {
-        boolean isOk = false;
-        if (licensePlate.length() == 8) {
-            if (licensePlate.substring(0, 3).matches("[a-zA-Z ]+") && licensePlate.charAt(3) == '-' && licensePlate.substring(5, 8).matches("^[0-9]{1,10}$")) {
-                isOk = true;
-            }
-        }
-        return isOk;
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,17 +133,24 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 
         public void onDateSet(DatePicker view, int selectedYear,
                               int selectedMonth, int selectedDay) {
-
             String dateToday = DateHelper.getDateTodayShow();
             String selectDay = String.valueOf(selectedDay);
             dateFormat = DateHelper.formatDate(false, selectedYear, selectedMonth, selectedDay, selectDay);
             String dateShow = DateHelper.formatDate(true, selectedYear, selectedMonth, selectedDay, selectDay);
             boolean isOk = DateHelper.isDateOk(dateShow, dateToday);
             if (isOk) {
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, selectedYear);
+                cal.set(Calendar.MONTH, selectedMonth);
+                cal.set(Calendar.DAY_OF_MONTH, selectedDay);
+                int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+                weekDaySelected = new DateFormatSymbols().getShortWeekdays()[dayOfWeek];
+                Log.i("DAY ", weekDaySelected);
                 etDate.setText(dateShow);
             } else {
                 Toast.makeText(context, "La fecha seleccionada no puede ser superior a la fecha actual", Toast.LENGTH_LONG).show();
