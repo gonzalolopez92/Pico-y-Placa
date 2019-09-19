@@ -2,7 +2,7 @@ package app.mobile.picopalaapp.helpers;
 
 public class Util {
 
-    public static boolean existCounterversion(char lastDigit, String date, String hour, String weekDaySelected) {
+    public static boolean existCounterversion(char lastDigit, String hour, String weekDaySelected) {
         switch (weekDaySelected) {
             case "lun.":
                 if (lastDigit == '1' || lastDigit == '2') {

@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
-
-import java.io.File;
 
 public class Sqlite extends SQLiteOpenHelper {
 
@@ -19,11 +16,14 @@ public class Sqlite extends SQLiteOpenHelper {
     public static final String DATE_CONSULTANT = "licensePlate";
     public static final String IS_COUNTERVERSION = "licensePlate";
 
-    private String sqlCreateTableConsultants = "CREATE TABLE Consultants("
+    public static final String TABLE_CONSULTANTS = "Consultants";
+
+
+    private String sqlCreateTableConsultants = "CREATE TABLE " + TABLE_CONSULTANTS + " ("
             + LICENSE_PLATE + " TEXT PRIMARY KEY, "
             + DATE_REGISTER + " TEXT, "
             + DATE_CONSULTANT + " TEXT, "
-            + IS_COUNTERVERSION + " TEXT)";
+            + IS_COUNTERVERSION + " INTEGER)";
 
 
     public Sqlite(Context context) {

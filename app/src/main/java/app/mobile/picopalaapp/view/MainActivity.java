@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
                     char lastDigit = licensePlate.charAt(licensePlate.length() - 1);
-                    boolean isCounterversion = Util.existCounterversion(lastDigit, date, hour, weekDaySelected);
+                    boolean isCounterversion = Util.existCounterversion(lastDigit, hour, weekDaySelected);
                     String msjDialog = "";
                     if (isCounterversion) {
                         msjDialog = "Usted no puede circular por la ciudad";

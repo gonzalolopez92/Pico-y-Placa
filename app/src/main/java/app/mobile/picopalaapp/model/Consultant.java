@@ -5,14 +5,12 @@ public class Consultant {
     private String dateRegister;
     private String licensePlate;
     private String dateConsultant;
-    private boolean isCounterversion;
+    private int isCounterversion;
 
-    public Consultant() {
-    }
 
-    public Consultant(String dateRegister, String licensePlate, String dateConsultant, boolean isCountversion) {
-        this.dateRegister = dateRegister;
+    public Consultant(String licensePlate, String dateRegister, String dateConsultant, int isCountversion) {
         this.licensePlate = licensePlate;
+        this.dateRegister = dateRegister;
         this.dateConsultant = dateConsultant;
         this.isCounterversion = isCountversion;
     }
@@ -41,11 +39,11 @@ public class Consultant {
         this.dateConsultant = dateConsultant;
     }
 
-    public boolean isCounterversion() {
+    public int isCounterversion() {
         return isCounterversion;
     }
 
-    public void setCounterversion(boolean counterversion) {
+    public void setCounterversion(int counterversion) {
         isCounterversion = counterversion;
     }
 
