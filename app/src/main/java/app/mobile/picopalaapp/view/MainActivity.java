@@ -26,8 +26,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import app.mobile.picopalaapp.R;
+import app.mobile.picopalaapp.controller.Controller;
 import app.mobile.picopalaapp.helpers.DateHelper;
 import app.mobile.picopalaapp.helpers.Util;
+import app.mobile.picopalaapp.model.Consultant;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText etHour;
     private EditText etDate;
     private String weekDaySelected;
+
+    private Controller controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         context = MainActivity.this;
+        controller = new Controller(context);
 
         View mainView = findViewById(R.id.main_view);
         final EditText etLicensePlate = mainView.findViewById(R.id.etLicensePlate);
@@ -91,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
         btnConsultant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String licensePlate = etLicensePlate.getText().toString();
-                String date = etDate.getText().toString();
-                String hour = etHour.getText().toString();
+                final String licensePlate = etLicensePlate.getText().toString();
+                final String date = etDate.getText().toString();
+                final String hour = etHour.getText().toString();
 
                 if (Util.validateLicensePlate(licensePlate)) {
                     if (date.isEmpty()) {
@@ -106,17 +111,31 @@ public class MainActivity extends AppCompatActivity {
                     }
                     char lastDigit = licensePlate.charAt(licensePlate.length() - 1);
                     boolean isCounterversion = Util.existCounterversion(lastDigit, hour, weekDaySelected);
+
                     String msjDialog = "";
                     if (isCounterversion) {
                         msjDialog = "Usted no puede circular por la ciudad";
                     } else {
                         msjDialog = "Usted puede circular por la ciudad";
                     }
+
+                    // INSERT CONSULTANT
+                    final int countVersion = (isCounterversion) ? 1 : 0;
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            final String currentDay = DateHelper.getCurrentDate();
+                            controller.insertConsultant(new Consultant(licensePlate, currentDay, date + " " + hour, countVersion));
+                        }
+                    }.start();
+
+
                     new AlertDialog.Builder(context)
                             .setTitle("Atención")
                             .setMessage(msjDialog)
                             .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+
                                     dialog.dismiss();
                                 }
                             })

@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class DateHelper {
 
@@ -40,20 +41,13 @@ public class DateHelper {
             strMin = "0" + minute;
         }
 
-        int seconds = calendar.get(Calendar.SECOND);
-        String strSecond = String.valueOf(seconds);
-        if (seconds < 10) {
-            strSecond = "0" + seconds;
-        }
+        return selectedYear + "/" + strSelectedMonth + "/" + strselectDay + " " + strHour + ":" + strMin;
 
-        String finalDate = "";
-        if (isShow) {
-            finalDate = strselectDay + "/" + strSelectedMonth + "/" + selectedYear;
-        } else {
-            finalDate = selectedYear + "-" + strSelectedMonth + "-" + strselectDay + "T" + strHour + ":" + strMin + ":" + strSecond;
-        }
+    }
 
-        return finalDate;
+    public static String getCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HHmm", Locale.getDefault());
+        return sdf.format(new Date());
     }
 
     public static boolean isHourInFirstRage(String hourSelected) {
