@@ -19,33 +19,21 @@ public class Consultant {
         return dateRegister;
     }
 
-    public void setDateRegister(String dateRegister) {
-        this.dateRegister = dateRegister;
-    }
 
     public String getLicensePlate() {
         return licensePlate;
     }
 
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
-    }
 
     public String getDateConsultant() {
         return dateConsultant;
     }
 
-    public void setDateConsultant(String dateConsultant) {
-        this.dateConsultant = dateConsultant;
-    }
 
     public int isCounterversion() {
         return isCounterversion;
     }
 
-    public void setCounterversion(int counterversion) {
-        isCounterversion = counterversion;
-    }
 
     @Override
     public String toString() {

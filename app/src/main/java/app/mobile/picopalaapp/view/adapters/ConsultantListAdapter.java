@@ -13,9 +13,6 @@ import app.mobile.picopalaapp.R;
 import app.mobile.picopalaapp.model.Consultant;
 
 
-/**
- * Created by usrkits on 13/4/2017.
- */
 public class ConsultantListAdapter extends BaseAdapter {
 
     private List<Consultant> consultantList;
