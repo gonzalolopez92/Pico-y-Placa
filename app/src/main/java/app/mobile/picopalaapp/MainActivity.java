@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean validateLicensePlate(String licensePlate) {
         boolean isOk = false;
         if (licensePlate.length() == 8) {
-            if (licensePlate.substring(0, 2).matches("[a-zA-Z ]+") && licensePlate.charAt(3) == '-' && licensePlate.substring(4, 7).matches("^[0-9]{1,10}$")) {
+            if (licensePlate.substring(0, 3).matches("[a-zA-Z ]+") && licensePlate.charAt(3) == '-' && licensePlate.substring(5, 8).matches("^[0-9]{1,10}$")) {
                 isOk = true;
             }
         }
