@@ -9,7 +9,7 @@ import java.util.Locale;
 public class DateHelper {
 
 
-    public static String formatDate(boolean isShow, int selectedYear, int selectedMonth, int selectedDay, String strselectDay) {
+    public static String formatDate(int selectedYear, int selectedMonth, int selectedDay, String strselectDay) {
         if (selectedDay < 10) {
             strselectDay = "0" + selectedDay;
         }
@@ -25,7 +25,7 @@ public class DateHelper {
     }
 
     public static String formatHour(int selectedHour, int selectedMinute) {
-        String formatedHour = "";
+        String formatedHour;
         if (selectedMinute < 9) {
             formatedHour = "0" + selectedMinute;
         } else {
@@ -43,19 +43,19 @@ public class DateHelper {
     public static boolean isHourInFirstRage(String hourSelected) {
         try {
             String hour1 = "7:00";
-            Date time1 = new SimpleDateFormat("HH:mm").parse(hour1);
+            Date time1 = new SimpleDateFormat("HH:mm", Locale.getDefault()).parse(hour1);
             Calendar calendar1 = Calendar.getInstance();
             calendar1.setTime(time1);
             calendar1.add(Calendar.DATE, 1);
 
 
             String hour2 = "9:30";
-            Date time2 = new SimpleDateFormat("HH:mm").parse(hour2);
+            Date time2 = new SimpleDateFormat("HH:mm", Locale.getDefault()).parse(hour2);
             Calendar calendar2 = Calendar.getInstance();
             calendar2.setTime(time2);
             calendar2.add(Calendar.DATE, 1);
 
-            Date d = new SimpleDateFormat("HH:mm").parse(hourSelected);
+            Date d = new SimpleDateFormat("HH:mm", Locale.getDefault()).parse(hourSelected);
             Calendar calendar3 = Calendar.getInstance();
             calendar3.setTime(d);
             calendar3.add(Calendar.DATE, 1);
@@ -74,19 +74,19 @@ public class DateHelper {
     public static boolean isHourInSecondtRage(String hourSelected) {
         try {
             String string1 = "16:00";
-            Date time1 = new SimpleDateFormat("HH:mm").parse(string1);
+            Date time1 = new SimpleDateFormat("HH:mm", Locale.getDefault()).parse(string1);
             Calendar calendar1 = Calendar.getInstance();
             calendar1.setTime(time1);
             calendar1.add(Calendar.DATE, 1);
 
 
             String string2 = "19:30";
-            Date time2 = new SimpleDateFormat("HH:mm").parse(string2);
+            Date time2 = new SimpleDateFormat("HH:mm", Locale.getDefault()).parse(string2);
             Calendar calendar2 = Calendar.getInstance();
             calendar2.setTime(time2);
             calendar2.add(Calendar.DATE, 1);
 
-            Date d = new SimpleDateFormat("HH:mm").parse(hourSelected);
+            Date d = new SimpleDateFormat("HH:mm", Locale.getDefault()).parse(hourSelected);
             Calendar calendar3 = Calendar.getInstance();
             calendar3.setTime(d);
             calendar3.add(Calendar.DATE, 1);

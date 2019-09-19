@@ -2,30 +2,30 @@ package app.mobile.picopalaapp.helpers;
 
 public class Util {
 
-    public static boolean existCounterversion(char lastDigit, String hour, String weekDaySelected) {
+    public static boolean existCounterversion(char lastDigit, String hour, int weekDaySelected) {
         switch (weekDaySelected) {
-            case "lun.":
+            case 2:
                 if (lastDigit == '1' || lastDigit == '2') {
                     if (DateHelper.isHourInFirstRage(hour) || DateHelper.isHourInSecondtRage(hour)) {
                         return true;
                     }
                 }
                 break;
-            case "mar.":
+            case 3:
                 if (lastDigit == '3' || lastDigit == '4') {
                     if (DateHelper.isHourInFirstRage(hour) || DateHelper.isHourInSecondtRage(hour)) {
                         return true;
                     }
                 }
                 break;
-            case "mié.":
+            case 4:
                 if (lastDigit == '5' || lastDigit == '6') {
                     if (DateHelper.isHourInFirstRage(hour) || DateHelper.isHourInSecondtRage(hour)) {
                         return true;
                     }
                 }
                 break;
-            case "jue.":
+            case 5:
                 if (lastDigit == '7' || lastDigit == '8') {
                     if (DateHelper.isHourInFirstRage(hour) || DateHelper.isHourInSecondtRage(hour)) {
                         return true;
@@ -33,7 +33,7 @@ public class Util {
 
                 }
                 break;
-            case "vie.":
+            case 6:
                 if (lastDigit == '9' || lastDigit == '0') {
                     if (DateHelper.isHourInFirstRage(hour) || DateHelper.isHourInSecondtRage(hour)) {
                         return true;

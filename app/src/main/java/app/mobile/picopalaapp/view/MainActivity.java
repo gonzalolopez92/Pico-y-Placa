@@ -13,7 +13,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -23,7 +22,6 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -33,14 +31,13 @@ import app.mobile.picopalaapp.controller.Controller;
 import app.mobile.picopalaapp.helpers.DateHelper;
 import app.mobile.picopalaapp.helpers.Util;
 import app.mobile.picopalaapp.model.Consultant;
-import app.mobile.picopalaapp.view.adapters.ConsultantListAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     private Context context;
     private EditText etHour;
     private EditText etDate;
-    private String weekDaySelected;
+    private int dayOfWeek;
 
     private Controller controller;
 
@@ -93,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                         etHour.setText(DateHelper.formatHour(selectedHour, selectedMinute));
                     }
                 }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Seleccionar Hora");
+                mTimePicker.setTitle(getString(R.string.select_hour));
                 mTimePicker.show();
 
             }
@@ -108,28 +105,28 @@ public class MainActivity extends AppCompatActivity {
 
                 if (Util.validateLicensePlate(licensePlate)) {
                     if (date.isEmpty()) {
-                        Toast.makeText(context, "Debe ingresar una fecha", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, getString(R.string.must_enter_date), Toast.LENGTH_LONG).show();
                         return;
                     }
                     if (hour.isEmpty()) {
-                        Toast.makeText(context, "Debe ingresar un horario", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, getString(R.string.must_enter_hour), Toast.LENGTH_LONG).show();
                         return;
                     }
                     char lastDigit = licensePlate.charAt(licensePlate.length() - 1);
-                    boolean isCounterversion = Util.existCounterversion(lastDigit, hour, weekDaySelected);
+                    boolean isCounterversion = Util.existCounterversion(lastDigit, hour, dayOfWeek);
 
-                    String msjDialog = "";
+                    String msjDialog;
                     if (isCounterversion) {
-                        msjDialog = "Usted no puede circular por la ciudad.";
+                        msjDialog = getString(R.string.can_not_circulate);
                     } else {
-                        msjDialog = "Usted puede circular por la ciudad.";
+                        msjDialog = getString(R.string.can_circulate);
                     }
 
 
                     new MakeConsultant(licensePlate, date, hour, isCounterversion, msjDialog).execute();
 
                 } else {
-                    Toast.makeText(context, "Debe ingresar una placa válida", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, getString(R.string.must_enter_valid_licensePlate), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -171,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             dialog.setTitle(getString(R.string.app_name));
             dialog.setCancelable(false);
             dialog.setIcon(R.mipmap.ic_launcher);
-            dialog.setMessage("Espere un momento...");
+            dialog.setMessage(getString(R.string.wait_a_moment));
             dialog.show();
         }
 
@@ -194,9 +191,9 @@ public class MainActivity extends AppCompatActivity {
             dialog.dismiss();
 
             new AlertDialog.Builder(context)
-                    .setTitle("Atención")
+                    .setTitle(getString(R.string.attention))
                     .setMessage(msgDialog + "\n\nContravenciones previas para " + licensePlate.toUpperCase() + ": " + previusCounterversions)
-                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
 
                             dialog.dismiss();
@@ -213,14 +210,12 @@ public class MainActivity extends AppCompatActivity {
         public void onDateSet(DatePicker view, int selectedYear,
                               int selectedMonth, int selectedDay) {
             String selectDay = String.valueOf(selectedDay);
-            String dateShow = DateHelper.formatDate(true, selectedYear, selectedMonth, selectedDay, selectDay);
+            String dateShow = DateHelper.formatDate(selectedYear, selectedMonth, selectedDay, selectDay);
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.YEAR, selectedYear);
             cal.set(Calendar.MONTH, selectedMonth);
             cal.set(Calendar.DAY_OF_MONTH, selectedDay);
-            int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-            weekDaySelected = new DateFormatSymbols().getShortWeekdays()[dayOfWeek];
-            Log.i("DAY ", weekDaySelected);
+            dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
             etDate.setText(dateShow);
 
         }

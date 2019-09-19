@@ -1,6 +1,5 @@
 package app.mobile.picopalaapp.view;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -33,8 +32,7 @@ public class ConsultantsActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lvConsultants = findViewById(R.id.lvConsultants);
 
@@ -42,11 +40,10 @@ public class ConsultantsActivity extends AppCompatActivity {
         controller = new Controller(context);
 
         new GetConsultants().execute();
-
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         finish();
         return true;
     }
@@ -64,7 +61,7 @@ public class ConsultantsActivity extends AppCompatActivity {
             dialog.setTitle(getString(R.string.app_name));
             dialog.setCancelable(false);
             dialog.setIcon(R.mipmap.ic_launcher);
-            dialog.setMessage("Espere un momento...");
+            dialog.setMessage(getString(R.string.wait_a_moment));
             dialog.show();
         }
 
