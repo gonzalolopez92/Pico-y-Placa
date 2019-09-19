@@ -1,12 +1,9 @@
 package app.mobile.picopalaapp.helpers;
 
-import android.util.Log;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class DateHelper {
@@ -21,32 +18,16 @@ public class DateHelper {
 
         selectedMonth = selectedMonth + 1;
         String strSelectedMonth = String.valueOf(selectedMonth);
+
         if (selectedMonth < 10) {
             strSelectedMonth = "0" + selectedMonth;
         }
-
-        Date date = new Date();
-        Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTime(date);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-
-        String strHour = String.valueOf(hour);
-        if (hour < 10) {
-            strHour = "0" + hour;
-        }
-
-        int minute = calendar.get(Calendar.MINUTE);
-        String strMin = String.valueOf(minute);
-        if (minute < 10) {
-            strMin = "0" + minute;
-        }
-
-        return selectedYear + "/" + strSelectedMonth + "/" + strselectDay + " " + strHour + ":" + strMin;
+        return selectedYear + "/" + strSelectedMonth + "/" + strselectDay;
 
     }
 
     public static String getCurrentDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HHmm", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.getDefault());
         return sdf.format(new Date());
     }
 

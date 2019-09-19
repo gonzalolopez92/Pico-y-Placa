@@ -8,26 +8,27 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class Sqlite extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "picopala.db";
-    public static final String DATABASE_NAME_FULLPATH = DATABASE_NAME;
     private static int DATABASE_VERSION = 1;
 
-    public static final String DATE_REGISTER = "dateRegister";
+    public static final String ID = "id";
     public static final String LICENSE_PLATE = "licensePlate";
-    public static final String DATE_CONSULTANT = "licensePlate";
-    public static final String IS_COUNTERVERSION = "licensePlate";
+    public static final String DATE_REGISTER = "dateRegister";
+    public static final String DATE_CONSULTANT = "dateConsultant";
+    public static final String IS_COUNTERVERSION = "isCounterversion";
 
     public static final String TABLE_CONSULTANTS = "Consultants";
 
 
     private String sqlCreateTableConsultants = "CREATE TABLE " + TABLE_CONSULTANTS + " ("
-            + LICENSE_PLATE + " TEXT PRIMARY KEY, "
+            + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + LICENSE_PLATE + " TEXT, "
             + DATE_REGISTER + " TEXT, "
             + DATE_CONSULTANT + " TEXT, "
             + IS_COUNTERVERSION + " INTEGER)";
 
 
     public Sqlite(Context context) {
-        super(context, DATABASE_NAME_FULLPATH, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
