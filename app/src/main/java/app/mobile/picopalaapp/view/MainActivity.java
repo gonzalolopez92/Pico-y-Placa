@@ -1,10 +1,12 @@
 package app.mobile.picopalaapp.view;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -31,6 +33,7 @@ import app.mobile.picopalaapp.controller.Controller;
 import app.mobile.picopalaapp.helpers.DateHelper;
 import app.mobile.picopalaapp.helpers.Util;
 import app.mobile.picopalaapp.model.Consultant;
+import app.mobile.picopalaapp.view.adapters.ConsultantListAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -122,27 +125,9 @@ public class MainActivity extends AppCompatActivity {
                         msjDialog = "Usted puede circular por la ciudad.";
                     }
 
-                    // INSERT CONSULTANT
-                    final int countVersion = (isCounterversion) ? 1 : 0;
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            final String currentDay = DateHelper.getCurrentDate();
-                            controller.insertConsultant(new Consultant(licensePlate, currentDay, date + " " + hour, countVersion));
-                        }
-                    }.start();
 
-                    new AlertDialog.Builder(context)
-                            .setTitle("Atención")
-                            .setMessage(msjDialog)
-                            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
+                    new MakeConsultant(licensePlate, date, hour, isCounterversion, msjDialog).execute();
 
-                                    dialog.dismiss();
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
                 } else {
                     Toast.makeText(context, "Debe ingresar una placa válida", Toast.LENGTH_LONG).show();
                 }
@@ -157,6 +142,70 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    private class MakeConsultant extends AsyncTask<Void, Void, Void> {
+
+        private ProgressDialog dialog;
+        private int previusCounterversions = 0;
+        private String licensePlate;
+        private String date;
+        private String hour;
+        private boolean isCounterversion;
+        private String msgDialog;
+
+
+        public MakeConsultant(String licensePlate, String date, String hour, boolean isCounterversion, String msgDialog) {
+            this.licensePlate = licensePlate;
+            this.date = date;
+            this.hour = hour;
+            this.isCounterversion = isCounterversion;
+            this.msgDialog = msgDialog;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(context);
+            dialog.setTitle(getString(R.string.app_name));
+            dialog.setCancelable(false);
+            dialog.setIcon(R.mipmap.ic_launcher);
+            dialog.setMessage("Espere un momento...");
+            dialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                previusCounterversions = controller.getPreviusCounterversion(licensePlate);
+                final String currentDay = DateHelper.getCurrentDate();
+                controller.insertConsultant(new Consultant(licensePlate, currentDay, date + " " + hour, (isCounterversion) ? 1 : 0));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            dialog.dismiss();
+
+            new AlertDialog.Builder(context)
+                    .setTitle("Atención")
+                    .setMessage(msgDialog + "\n\nContravenciones previas para " + licensePlate.toUpperCase() + ": " + previusCounterversions)
+                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            dialog.dismiss();
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+
+        }
     }
 
     private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {

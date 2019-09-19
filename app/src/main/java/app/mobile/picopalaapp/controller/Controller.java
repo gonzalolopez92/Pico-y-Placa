@@ -23,7 +23,7 @@ public class Controller {
     public void insertConsultant(Consultant consultant) {
         ContentValues cv = new ContentValues();
 
-        cv.put(Sqlite.LICENSE_PLATE, consultant.getLicensePlate());
+        cv.put(Sqlite.LICENSE_PLATE, consultant.getLicensePlate().toUpperCase());
         cv.put(Sqlite.DATE_REGISTER, consultant.getDateRegister());
         cv.put(Sqlite.DATE_CONSULTANT, consultant.getDateConsultant());
         cv.put(Sqlite.IS_COUNTERVERSION, consultant.isCounterversion());
@@ -50,7 +50,7 @@ public class Controller {
         Cursor cursor = bd.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                consultant = new Consultant(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
+                consultant = new Consultant(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4));
                 listConsultants.add(consultant);
             } while (cursor.moveToNext());
         }
@@ -58,5 +58,31 @@ public class Controller {
         bd.close();
         return listConsultants;
     }
+
+    public int getPreviusCounterversion(String licensePlate) {
+        int previusCounterversion = 0;
+
+        SQLiteDatabase bd = instBD.getReadableDatabase();
+//        String selectQuery = "SELECT * " +
+//                " FROM " + Sqlite.TABLE_CONSULTANTS +
+//                " WHERE " + Sqlite.LICENSE_PLATE + "=" + licensePlate +
+//                " AND " + Sqlite.IS_COUNTERVERSION + "='1'";
+
+
+        String selectQuery = "SELECT * FROM " + Sqlite.TABLE_CONSULTANTS + " WHERE "
+                + Sqlite.IS_COUNTERVERSION + " = '" + 1 + "' AND " +
+                Sqlite.LICENSE_PLATE + "  = \"" + licensePlate + "\"";
+
+        Cursor cursor = bd.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                previusCounterversion++;
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        bd.close();
+        return previusCounterversion;
+    }
+
 
 }

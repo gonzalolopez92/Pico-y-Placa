@@ -1,5 +1,6 @@
 package app.mobile.picopalaapp.view;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -32,6 +33,8 @@ public class ConsultantsActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
 
         lvConsultants = findViewById(R.id.lvConsultants);
 
@@ -42,6 +45,11 @@ public class ConsultantsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
 
 
     private class GetConsultants extends AsyncTask<Void, Void, Void> {
