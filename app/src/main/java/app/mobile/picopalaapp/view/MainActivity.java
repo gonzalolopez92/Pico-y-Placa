@@ -4,10 +4,13 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +18,14 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
 import app.mobile.picopalaapp.R;
 import app.mobile.picopalaapp.controller.Controller;
 import app.mobile.picopalaapp.helpers.DateHelper;
@@ -51,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnSelectDate = mainView.findViewById(R.id.btnSelectDate);
         Button btnSelectHour = mainView.findViewById(R.id.btnSelectHour);
         Button btnConsultant = mainView.findViewById(R.id.btnConsultant);
+        FloatingActionButton listConsultantButton = findViewById(R.id.listConsultants);
+
 
         btnSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,14 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String formatedHour = "";
-                        if (selectedMinute < 9) {
-                            formatedHour = "0" + selectedMinute;
-                        } else {
-                            formatedHour = String.valueOf(selectedMinute);
-                        }
-                        formatedHour = selectedHour + ":" + formatedHour;
-                        etHour.setText(formatedHour);
+                        etHour.setText(DateHelper.formatHour(selectedHour, selectedMinute));
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Seleccionar Hora");
@@ -130,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }.start();
 
-
                     new AlertDialog.Builder(context)
                             .setTitle("Atención")
                             .setMessage(msjDialog)
@@ -145,6 +146,13 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(context, "Debe ingresar una placa válida", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        listConsultantButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ConsultantsActivity.class));
             }
         });
 

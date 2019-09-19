@@ -20,14 +20,17 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/new_register" android:id="@+id/main_view" />
+    <include
+        android:id="@+id/main_view"
+        layout="@layout/new_register" />
 
-  <!--  <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/listConsultants"
+        android:src="@drawable/ic_format_list_bulleted_black_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/arrow_up_float" />!-->
+        android:tint="@android:color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

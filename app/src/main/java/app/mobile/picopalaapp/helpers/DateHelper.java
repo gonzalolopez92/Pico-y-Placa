@@ -9,9 +9,7 @@ import java.util.Locale;
 public class DateHelper {
 
 
-    public static String formatDate(boolean isShow, int selectedYear,
-                                    int selectedMonth, int selectedDay, String strselectDay) {
-
+    public static String formatDate(boolean isShow, int selectedYear, int selectedMonth, int selectedDay, String strselectDay) {
         if (selectedDay < 10) {
             strselectDay = "0" + selectedDay;
         }
@@ -23,6 +21,17 @@ public class DateHelper {
             strSelectedMonth = "0" + selectedMonth;
         }
         return selectedYear + "/" + strSelectedMonth + "/" + strselectDay;
+
+    }
+
+    public static String formatHour(int selectedHour, int selectedMinute) {
+        String formatedHour = "";
+        if (selectedMinute < 9) {
+            formatedHour = "0" + selectedMinute;
+        } else {
+            formatedHour = String.valueOf(selectedMinute);
+        }
+        return selectedHour + ":" + formatedHour;
 
     }
 
