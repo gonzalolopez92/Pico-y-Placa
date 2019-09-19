@@ -3,10 +3,12 @@ package app.mobile.picopalaapp;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -35,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     private EditText etHour;
     private EditText etDate;
-    private String dateFormat;
     private String weekDaySelected;
 
     @Override
@@ -106,7 +107,23 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(context, "Debe ingresar un horario", Toast.LENGTH_LONG).show();
                         return;
                     }
-                    Util.existCounterversion(lastDigit, date, hour, weekDaySelected);
+                    boolean isCounterversion = Util.existCounterversion(lastDigit, date, hour, weekDaySelected);
+                    String msjDialog = "";
+                    if (isCounterversion) {
+                        msjDialog = "Usted no puede circular por la ciudad";
+                    } else {
+                        msjDialog = "Usted puede circular por la ciudad";
+                    }
+                    new AlertDialog.Builder(context)
+                            .setTitle("Atención")
+                            .setMessage(msjDialog)
+                            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
                 } else {
                     Toast.makeText(context, "Debe ingresar una placa válida", Toast.LENGTH_LONG).show();
                 }
@@ -140,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                               int selectedMonth, int selectedDay) {
             String dateToday = DateHelper.getDateTodayShow();
             String selectDay = String.valueOf(selectedDay);
-            dateFormat = DateHelper.formatDate(false, selectedYear, selectedMonth, selectedDay, selectDay);
             String dateShow = DateHelper.formatDate(true, selectedYear, selectedMonth, selectedDay, selectDay);
             boolean isOk = DateHelper.isDateOk(dateShow, dateToday);
             if (isOk) {

@@ -121,11 +121,9 @@ public class DateHelper {
             calendar3.add(Calendar.DATE, 1);
 
             Date x = calendar3.getTime();
-            if (x.after(calendar1.getTime()) && x.before(calendar2.getTime())) {
-                Log.i("RANGO", "HORA EN RANGO HORARIO!!");
+            if ((x.equals(calendar1.getTime()) || x.after(calendar1.getTime())) && (x.equals(calendar2.getTime()) || x.before(calendar2.getTime()))) {
                 return true;
             }
-            Log.i("RANGO", "HORA FUERA DEL RANGO HORARIO!!");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -154,11 +152,9 @@ public class DateHelper {
             calendar3.add(Calendar.DATE, 1);
 
             Date x = calendar3.getTime();
-            if (x.after(calendar1.getTime()) && x.before(calendar2.getTime())) {
-                Log.i("RANGO", "HORA EN RANGO HORARIO!!");
+            if ((x.equals(calendar1.getTime()) || x.after(calendar1.getTime())) && (x.equals(calendar2.getTime()) || x.before(calendar2.getTime()))) {
                 return true;
             }
-            Log.i("RANGO", "HORA FUERA DEL RANGO HORARIO!!");
         } catch (ParseException e) {
             e.printStackTrace();
         }
