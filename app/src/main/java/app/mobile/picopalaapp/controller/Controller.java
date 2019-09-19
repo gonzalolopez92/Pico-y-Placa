@@ -63,15 +63,9 @@ public class Controller {
         int previusCounterversion = 0;
 
         SQLiteDatabase bd = instBD.getReadableDatabase();
-//        String selectQuery = "SELECT * " +
-//                " FROM " + Sqlite.TABLE_CONSULTANTS +
-//                " WHERE " + Sqlite.LICENSE_PLATE + "=" + licensePlate +
-//                " AND " + Sqlite.IS_COUNTERVERSION + "='1'";
-
-
         String selectQuery = "SELECT * FROM " + Sqlite.TABLE_CONSULTANTS + " WHERE "
                 + Sqlite.IS_COUNTERVERSION + " = '" + 1 + "' AND " +
-                Sqlite.LICENSE_PLATE + "  = \"" + licensePlate + "\"";
+                Sqlite.LICENSE_PLATE + "  = \"" + licensePlate.toUpperCase() + "\"";
 
         Cursor cursor = bd.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
