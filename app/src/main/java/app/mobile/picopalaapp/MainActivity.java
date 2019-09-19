@@ -155,22 +155,16 @@ public class MainActivity extends AppCompatActivity {
 
         public void onDateSet(DatePicker view, int selectedYear,
                               int selectedMonth, int selectedDay) {
-            String dateToday = DateHelper.getDateTodayShow();
             String selectDay = String.valueOf(selectedDay);
             String dateShow = DateHelper.formatDate(true, selectedYear, selectedMonth, selectedDay, selectDay);
-            boolean isOk = DateHelper.isDateOk(dateShow, dateToday);
-            if (isOk) {
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.YEAR, selectedYear);
-                cal.set(Calendar.MONTH, selectedMonth);
-                cal.set(Calendar.DAY_OF_MONTH, selectedDay);
-                int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-                weekDaySelected = new DateFormatSymbols().getShortWeekdays()[dayOfWeek];
-                Log.i("DAY ", weekDaySelected);
-                etDate.setText(dateShow);
-            } else {
-                Toast.makeText(context, "La fecha seleccionada no puede ser superior a la fecha actual", Toast.LENGTH_LONG).show();
-            }
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, selectedYear);
+            cal.set(Calendar.MONTH, selectedMonth);
+            cal.set(Calendar.DAY_OF_MONTH, selectedDay);
+            int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+            weekDaySelected = new DateFormatSymbols().getShortWeekdays()[dayOfWeek];
+            Log.i("DAY ", weekDaySelected);
+            etDate.setText(dateShow);
 
         }
     };

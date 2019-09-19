@@ -11,50 +11,6 @@ import java.util.GregorianCalendar;
 public class DateHelper {
 
 
-    public static String getDateTodayShow() {
-        java.util.Date date = new java.util.Date();
-        Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTime(date);
-
-        int year = calendar.get(Calendar.YEAR);
-
-        int month = calendar.get(Calendar.MONTH);
-        month = month + 1;
-        String strMonth = String.valueOf(month);
-        if (month < 10) {
-            strMonth = "0" + month;
-        }
-
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        String strDay = String.valueOf(day);
-        if (day < 10) {
-            strDay = "0" + day;
-        }
-
-        String fecha = strDay + "/" + strMonth + "/" + year;
-        return fecha;
-    }
-
-
-    public static boolean isDateOk(String fechaFormat1, String fechaFormta2) {
-        String[] fecha1 = fechaFormat1.split("\\/");
-        String[] fecha2 = fechaFormta2.split("\\/");
-
-        int año = Integer.parseInt(fecha1[2]);
-        int año2 = Integer.parseInt(fecha2[2]);
-        int mes = Integer.parseInt(fecha1[1]);
-        int mes2 = Integer.parseInt(fecha2[1]);
-        int dia = Integer.parseInt(fecha1[0]);
-        int dia2 = Integer.parseInt(fecha2[0]);
-
-        if (año >= año2 && mes >= mes2 && dia > dia2) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
     public static String formatDate(boolean isShow, int selectedYear,
                                     int selectedMonth, int selectedDay, String strselectDay) {
 
