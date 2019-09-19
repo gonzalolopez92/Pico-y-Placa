@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         btnSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                closeKeyBoard();
                 Date date = new Date();
                 Calendar calendar = GregorianCalendar.getInstance();
                 calendar.setTime(date);
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         btnSelectHour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                closeKeyBoard();
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -141,6 +144,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    public void closeKeyBoard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 
     private class MakeConsultant extends AsyncTask<Void, Void, Void> {
 

@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,6 +24,7 @@ public class ConsultantsActivity extends AppCompatActivity {
     private Controller controller;
     private List<Consultant> consultantList;
     private ListView lvConsultants;
+    private TextView tvEmptyList;
     private ConsultantListAdapter adapter;
 
 
@@ -35,6 +38,7 @@ public class ConsultantsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         lvConsultants = findViewById(R.id.lvConsultants);
+        tvEmptyList = findViewById(R.id.tvEmptyList);
 
         context = ConsultantsActivity.this;
         controller = new Controller(context);
@@ -79,10 +83,13 @@ public class ConsultantsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            adapter = new ConsultantListAdapter(consultantList, context);
-            lvConsultants.setAdapter(adapter);
+            if (consultantList.size() == 0) {
+                tvEmptyList.setVisibility(View.VISIBLE);
+            } else {
+                adapter = new ConsultantListAdapter(consultantList, context);
+                lvConsultants.setAdapter(adapter);
+            }
             dialog.dismiss();
-
         }
     }
 }
