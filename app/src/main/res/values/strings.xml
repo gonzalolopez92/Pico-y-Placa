@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PicoPalaApp</string>
+    <string name="app_name">Pico Y Placa</string>
     <string name="select_hour">Seleccionar Hora</string>
     <string name="must_enter_date">Debe ingresar una fecha</string>
     <string name="must_enter_hour">Debe ingresar un horario</string>

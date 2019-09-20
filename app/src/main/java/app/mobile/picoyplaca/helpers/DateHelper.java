@@ -1,4 +1,4 @@
-package app.mobile.picopalaapp.helpers;
+package app.mobile.picoyplaca.helpers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package app.mobile.picopalaapp;
+package app.mobile.picoyplaca;
 
 import android.content.Context;
 

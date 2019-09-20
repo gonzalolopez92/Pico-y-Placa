@@ -1,4 +1,4 @@
-package app.mobile.picopalaapp.view;
+package app.mobile.picoyplaca.view;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,10 +13,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.List;
 
-import app.mobile.picopalaapp.R;
-import app.mobile.picopalaapp.controller.Controller;
-import app.mobile.picopalaapp.model.Consultant;
-import app.mobile.picopalaapp.view.adapters.ConsultantListAdapter;
+import app.mobile.picoyplaca.R;
+import app.mobile.picoyplaca.controller.Controller;
+import app.mobile.picoyplaca.model.Consultant;
+import app.mobile.picoyplaca.view.adapters.ConsultantListAdapter;
 
 public class ConsultantsActivity extends AppCompatActivity {
 

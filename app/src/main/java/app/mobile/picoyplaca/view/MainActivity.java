@@ -1,4 +1,4 @@
-package app.mobile.picopalaapp.view;
+package app.mobile.picoyplaca.view;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -27,11 +27,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import app.mobile.picopalaapp.R;
-import app.mobile.picopalaapp.controller.Controller;
-import app.mobile.picopalaapp.helpers.DateHelper;
-import app.mobile.picopalaapp.helpers.Util;
-import app.mobile.picopalaapp.model.Consultant;
+import app.mobile.picoyplaca.R;
+import app.mobile.picoyplaca.controller.Controller;
+import app.mobile.picoyplaca.helpers.DateHelper;
+import app.mobile.picoyplaca.helpers.Util;
+import app.mobile.picoyplaca.model.Consultant;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package app.mobile.picopalaapp.controller;
+package app.mobile.picoyplaca.controller;
 
 import android.content.Context;
 import android.database.SQLException;
@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Sqlite extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "picopala.db";
+    public static final String DATABASE_NAME = "picoyplaca.db";
     private static int DATABASE_VERSION = 1;
 
     public static final String ID = "id";

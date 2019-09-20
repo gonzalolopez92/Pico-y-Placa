@@ -1,4 +1,4 @@
-package app.mobile.picopalaapp.controller;
+package app.mobile.picoyplaca.controller;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.mobile.picopalaapp.model.Consultant;
+import app.mobile.picoyplaca.model.Consultant;
 
 public class Controller {
 

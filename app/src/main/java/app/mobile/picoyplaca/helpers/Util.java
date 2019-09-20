@@ -1,4 +1,4 @@
-package app.mobile.picopalaapp.helpers;
+package app.mobile.picoyplaca.helpers;
 
 public class Util {
 

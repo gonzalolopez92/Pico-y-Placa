@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.mobile.picopalaapp">
+    package="app.mobile.picoyplaca">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.MainActivity"
+            android:name="app.mobile.picoyplaca.view.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -22,7 +22,7 @@
         </activity>
 
         <activity
-            android:name=".view.ConsultantsActivity"
+            android:name="app.mobile.picoyplaca.view.ConsultantsActivity"
             android:label="Consultas"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

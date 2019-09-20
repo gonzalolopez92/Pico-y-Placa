@@ -1,4 +1,4 @@
-package app.mobile.picopalaapp.model;
+package app.mobile.picoyplaca.model;
 
 public class Consultant {
 

@@ -1,4 +1,4 @@
-package app.mobile.picopalaapp.view.adapters;
+package app.mobile.picoyplaca.view.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import app.mobile.picopalaapp.R;
-import app.mobile.picopalaapp.model.Consultant;
+import app.mobile.picoyplaca.R;
+import app.mobile.picoyplaca.model.Consultant;
 
 
 public class ConsultantListAdapter extends BaseAdapter {
