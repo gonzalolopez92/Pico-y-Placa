@@ -26,6 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 import app.mobile.picoyplaca.R;
 import app.mobile.picoyplaca.controller.Controller;
@@ -145,11 +146,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void closeKeyBoard() {
+    private void closeKeyBoard() {
         View view = this.getCurrentFocus();
         if (view != null) {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
@@ -157,14 +158,14 @@ public class MainActivity extends AppCompatActivity {
 
         private ProgressDialog dialog;
         private int previusCounterversions = 0;
-        private String licensePlate;
-        private String date;
-        private String hour;
-        private boolean isCounterversion;
-        private String msgDialog;
+        private final String licensePlate;
+        private final String date;
+        private final String hour;
+        private final boolean isCounterversion;
+        private final String msgDialog;
 
 
-        public MakeConsultant(String licensePlate, String date, String hour, boolean isCounterversion, String msgDialog) {
+        private MakeConsultant(String licensePlate, String date, String hour, boolean isCounterversion, String msgDialog) {
             this.licensePlate = licensePlate;
             this.date = date;
             this.hour = hour;
@@ -216,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+    private final DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 
         public void onDateSet(DatePicker view, int selectedYear,
                               int selectedMonth, int selectedDay) {

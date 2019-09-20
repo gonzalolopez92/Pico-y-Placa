@@ -5,21 +5,21 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class Sqlite extends SQLiteOpenHelper {
+class Sqlite extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "picoyplaca.db";
-    private static int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "picoyplaca.db";
+    private static final int DATABASE_VERSION = 1;
 
-    public static final String ID = "id";
-    public static final String LICENSE_PLATE = "licensePlate";
-    public static final String DATE_REGISTER = "dateRegister";
-    public static final String DATE_CONSULTANT = "dateConsultant";
-    public static final String IS_COUNTERVERSION = "isCounterversion";
+    private static final String ID = "id";
+    static final String LICENSE_PLATE = "licensePlate";
+    static final String DATE_REGISTER = "dateRegister";
+    static final String DATE_CONSULTANT = "dateConsultant";
+    static final String IS_COUNTERVERSION = "isCounterversion";
 
-    public static final String TABLE_CONSULTANTS = "Consultants";
+    static final String TABLE_CONSULTANTS = "Consultants";
 
 
-    private String sqlCreateTableConsultants = "CREATE TABLE " + TABLE_CONSULTANTS + " ("
+    private final String sqlCreateTableConsultants = "CREATE TABLE " + TABLE_CONSULTANTS + " ("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + LICENSE_PLATE + " TEXT, "
             + DATE_REGISTER + " TEXT, "

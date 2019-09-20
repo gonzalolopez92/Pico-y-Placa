@@ -13,8 +13,7 @@ import app.mobile.picoyplaca.model.Consultant;
 
 public class Controller {
 
-
-    private Sqlite instBD;
+    private final Sqlite instBD;
 
     public Controller(Context context) {
         this.instBD = new Sqlite(context);
@@ -41,7 +40,7 @@ public class Controller {
     }
 
     public List<Consultant> getConsultants() {
-        ArrayList<Consultant> listConsultants = new ArrayList<Consultant>();
+        ArrayList<Consultant> listConsultants = new ArrayList<>();
         Consultant consultant;
 
         SQLiteDatabase bd = instBD.getReadableDatabase();

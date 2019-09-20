@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.List;
+import java.util.Objects;
 
 import app.mobile.picoyplaca.R;
 import app.mobile.picoyplaca.controller.Controller;
@@ -25,7 +26,6 @@ public class ConsultantsActivity extends AppCompatActivity {
     private List<Consultant> consultantList;
     private ListView lvConsultants;
     private TextView tvEmptyList;
-    private ConsultantListAdapter adapter;
 
 
     @Override
@@ -35,7 +35,7 @@ public class ConsultantsActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         lvConsultants = findViewById(R.id.lvConsultants);
         tvEmptyList = findViewById(R.id.tvEmptyList);
@@ -86,8 +86,7 @@ public class ConsultantsActivity extends AppCompatActivity {
             if (consultantList.size() == 0) {
                 tvEmptyList.setVisibility(View.VISIBLE);
             } else {
-                adapter = new ConsultantListAdapter(consultantList, context);
-                lvConsultants.setAdapter(adapter);
+                lvConsultants.setAdapter(new ConsultantListAdapter(consultantList, context));
             }
             dialog.dismiss();
         }

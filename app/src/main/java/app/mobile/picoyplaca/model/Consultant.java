@@ -2,10 +2,10 @@ package app.mobile.picoyplaca.model;
 
 public class Consultant {
 
-    private String dateRegister;
-    private String licensePlate;
-    private String dateConsultant;
-    private int isCounterversion;
+    private final String dateRegister;
+    private final String licensePlate;
+    private final String dateConsultant;
+    private final int isCounterversion;
 
 
     public Consultant(String licensePlate, String dateRegister, String dateConsultant, int isCountversion) {

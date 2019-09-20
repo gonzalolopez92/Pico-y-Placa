@@ -15,8 +15,8 @@ import app.mobile.picoyplaca.model.Consultant;
 
 public class ConsultantListAdapter extends BaseAdapter {
 
-    private List<Consultant> consultantList;
-    private Context context;
+    private final List<Consultant> consultantList;
+    private final Context context;
 
     public ConsultantListAdapter(List<Consultant> consultantList, Context context) {
         this.consultantList = consultantList;
